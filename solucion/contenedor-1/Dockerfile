@@ -19,5 +19,9 @@ RUN \
 COPY conf/proftpd.conf /etc/proftpd/
 COPY recursos/. /srv/ftp/recursos_1
 
+# Tras la copia aplica el cambio de propietario para que "ftp" acceda a "recursos_1"
+RUN \
+       chown -R ftp:nogroup /srv/ftp
+
 # Informa de los puertos que deberían ser publicados al crear el contenedor
 EXPOSE 21 50000-50030

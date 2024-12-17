@@ -13,7 +13,7 @@ LABEL \
 RUN \
         apt update \
         && apt -y install nano proftpd openssl proftpd-mod-crypto \
-        && useradd deaw -p $(openssl passwd -1 deaw) -m -d /srv/deaw -s /usr/sbin/nologin
+        && useradd deaw -p $(openssl passwd -1 deaw) -d /srv/deaw -s /usr/sbin/nologin
 
 # Ficheros a copiar (configuración y recursos)
 COPY conf/proftpd.conf /etc/proftpd/
@@ -23,7 +23,7 @@ COPY conf/proftpd.key.pem /etc/ssl/private/
 COPY conf/proftpd.crt.pem /etc/ssl/certs/
 COPY recursos/. /srv/deaw/recursos_2
 
-# Tras la copia aplica los permisos necesarios para "deaw" acceda al directorio "recursos"
+# Tras la copia aplica el cambio de propietario para que "deaw" acceda a "recursos_2"
 RUN \
         chown -R deaw:deaw /srv/deaw
 
